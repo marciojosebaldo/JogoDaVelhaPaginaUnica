@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    
+    <title>Jogo da Velha</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Jogo da Velha</h2>
+        <div><p id="mensagem"></p></div>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td id="11"></td>
+                    <td id="12"></td>
+                    <td id="13"></td>
+                </tr>
+                <tr>
+                    <td id="21"></td>
+                    <td id="22"></td>
+                    <td id="23"></td>
+                </tr>
+                <tr>
+                    <td id="31"></td>
+                    <td id="32"></td>
+                    <td id="33"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script type="text/javascript">
+        
+        let currentPlayer = 1;
+        $("td").click(function() {
+            if (currentPlayer == 1 && $(this).text() == ""){
+                $(this).text("X");
+                currentPlayer = 2;
+            } else if($(this).text() == ""){
+                $(this).text("O");
+                currentPlayer = 1;
+            }
+
+            vencedor();
+        });
+
+        function mensagemVencedor(mensagem) {
+            $("#mensagem").text(mensagem);
+        }
+
+        function vencedor() {
+            <!--X e O na horizontal-->
+            if ($("#11").text() === "X" && $("#12").text() === "X" && $("#13").text() === "X") {
+                mensagemVencedor("O vencedor é o jogador X");
+            } else if ($("#11").text() === "O" && $("#12").text() === "O" && $("#13").text() === "O") {
+                mensagemVencedor("O vencedor é o jogador O");
+            } else if ($("#21").text() === "X" && $("#22").text() === "X" && $("#23").text() === "X") {
+                mensagemVencedor("O vencedor é o jogador X");
+            } else if ($("#21").text() === "O" && $("#22").text() === "O" && $("#23").text() === "O") {
+                mensagemVencedor("O vencedor é o jogador O");
+            } else if ($("#31").text() === "X" && $("#32").text() === "X" && $("#33").text() === "X") {
+                mensagemVencedor("O vencedor é o jogador X");
+            } else if ($("#31").text() === "O" && $("#32").text() === "O" && $("#33").text() === "O") {
+                mensagemVencedor("O vencedor é o jogador O");
+            } 
+
+            <!--X e O na vertical-->
+            else if ($("#11").text() === "X" && $("#21").text() === "X" && $("#31").text() === "X") {
+                mensagemVencedor("O vencedor é o jogador X");
+            } else if ($("#11").text() === "O" && $("#21").text() === "O" && $("#31").text() === "O") {
+                mensagemVencedor("O vencedor é o jogador O");
+            } else if ($("#12").text() === "X" && $("#22").text() === "X" && $("#32").text() === "X") {
+                mensagemVencedor("O vencedor é o jogador X");
+            } else if ($("#12").text() === "O" && $("#22").text() === "O" && $("#32").text() === "O") {
+                mensagemVencedor("O vencedor é o jogador O");
+            } else if ($("#13").text() === "X" && $("#23").text() === "X" && $("#33").text() === "X") {
+                mensagemVencedor("O vencedor é o jogador X");
+            } else if ($("#13").text() === "O" && $("#23").text() === "O" && $("#33").text() === "O") {
+                mensagemVencedor("O vencedor é o jogador O");
+            }
+
+            <!--X e O na diagonal-->
+            else if ($("#11").text() === "X" && $("#22").text() === "X" && $("#33").text() === "X") {
+                mensagemVencedor("O vencedor é o jogador X");
+            } else if ($("#11").text() === "O" && $("#22").text() === "O" && $("#33").text() === "O") {
+                mensagemVencedor("O vendor é o jogador O")
+            } else if ($("#31").text() === "X" && $("#22").text() === "X" && $("#13").text() === "X") {
+                mensagemVencedor("O vencedor é o jogador X")
+            } else if ($("#31").text() === "O" && $("#22").text() === "O" && $("#13").text() === "O"){
+                mensagemVencedor("O vencedor é o jogador O")
+            }
+        }
+
+        function tabelaPlacar() {
+            
+        }
+    </script>
+</body>
+</html>
