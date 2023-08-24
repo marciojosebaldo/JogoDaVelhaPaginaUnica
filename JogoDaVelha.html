@@ -7,6 +7,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     
+    <style>
+        .table-bordered td {
+            padding: 0;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .table-bordered td div {
+            max-width: 100%;
+            max-height: 100%;
+            overflow: hidden;
+        }
+    </style>
+
     <title>Jogo da Velha</title>
 </head>
 <body>
@@ -17,8 +32,7 @@
         <div class="resultadoPlacarX"><h2>Jogador X: <span id="placarX"></span></h2></div>
         <div class="resultadoPlacarO"><h2>Jogador O: <span id="placarO"></span></h2></div>
     </div>
-    <div><p id="mensagem" class="text-center"></p></div>
-        <table class="table table-bordered">
+        <table class="table table-bordered mt-5">
             <tbody>
                 <tr>
                     <td id="11"></td>
@@ -37,13 +51,22 @@
                 </tr>
             </tbody>
         </table>
+        <div>
+            <button id="limpar" class="btn btn-primary mt-3">Limpar</button>
+        </div>
+        <div><p id="mensagem" class="text-center mt-5"></p></div>
     </div>
     <script type="text/javascript">        
         let currentPlayer = 1;
         let placarX = 0;
         let placarO = 0;
+        let fimDeJogo = false;
 
         $("td").click(function() {
+            if (fimDeJogo) {
+                return;
+            }
+
             if (currentPlayer == 1 && $(this).text() == ""){
                 $(this).text("X");
                 currentPlayer = 2;
@@ -53,6 +76,7 @@
             }
 
             if(vencedor()) {
+                fimDeJogo = true;
                 if (currentPlayer == 1) {
                     placarO ++;
                 } else {
@@ -75,8 +99,8 @@
             $("#12").text() === "X" && $("#22").text() === "X" && $("#32").text() === "X" ||
             $("#13").text() === "X" && $("#23").text() === "X" && $("#33").text() === "X" ||
             $("#11").text() === "X" && $("#22").text() === "X" && $("#33").text() === "X" ||
-            $("#31").text() === "X" && $("#22").text() === "X" && $("#13").text() === "X" ||) {
-                mensagemVencedor = ("O vencedor é o jogador X");
+            $("#31").text() === "X" && $("#22").text() === "X" && $("#13").text() === "X") {
+                mensagemVencedor("O vencedor é o jogador X");
                 return true;
             } else if ($("#11").text() === "O" && $("#12").text() === "O" && $("#13").text() === "O" ||
             $("#21").text() === "O" && $("#22").text() === "O" && $("#23").text() === "O" ||
@@ -86,7 +110,7 @@
             $("#13").text() === "O" && $("#23").text() === "O" && $("#33").text() === "O" ||
             $("#11").text() === "O" && $("#22").text() === "O" && $("#33").text() === "O" ||
             $("#31").text() === "O" && $("#22").text() === "O" && $("#13").text() === "O"){
-                mensagemVencedor = ("O vencedor é o jogador O");
+                mensagemVencedor("O vencedor é o jogador O");
                 return true;
             }
             return false;
@@ -96,7 +120,20 @@
             $("#placarX").text(placarX);
             $("#placarO").text(placarO);
         }
-        
+
+        $("#limpar").click(function() {
+            $("td").text("");
+            currentPlayer = 1;
+            fimDeJogo = false;
+            $("#mensagem").text("");
+        });
+
+        $(document).ready(function() {
+            placarX = 0;
+            placarO = 0;
+            atualizarPlacar();
+        });
+
     </script>
 </body>
 </html>
